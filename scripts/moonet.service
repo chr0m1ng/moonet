@@ -8,7 +8,7 @@ Environment=XDG_RUNTIME_DIR=/run/user/1000
 Environment=PULSE_SERVER=unix:/run/user/1000/pulse/native
 User=pi
 WorkingDirectory=/home/pi/moonet
-ExecStart=poetry run gunicorn -w 1 -b 0.0.0.0:8080 wsgi:app
+ExecStart=poetry run gunicorn -w 1 -b [::]:8080 wsgi:app
 Restart=always
 RestartSec=3
 Environment="PYTHONUNBUFFERED=1"
