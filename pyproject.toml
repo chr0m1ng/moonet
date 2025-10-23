@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "moonet"
+version = "0.1.0"
+description = "Minimal Flask‑RESTful backend for MoonPi (Moonet server) on Raspberry Pi"
+authors = ["Gabriel Santos <gabriel@example.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "moonet" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+flask = "^3.0.0"
+flask-restful = "^0.3.10"
+yt-dlp = "*"
+gunicorn = "^21.0.0"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.0"
+mypy = "^1.10"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "wsgi:main"

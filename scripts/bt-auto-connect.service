@@ -1,0 +1,14 @@
+[Unit]
+Description=Auto-connect UE Wonderboom 2 Bluetooth speaker
+After=bluetooth.service sound.target
+Before=moonet.service
+Wants=bluetooth.service
+
+[Service]
+Type=oneshot
+User=pi
+ExecStart=/usr/bin/bash -lc "bluetoothctl power on && bluetoothctl connect AA:BB:CC:DD:EE:FF && pactl set-default-sink bluez_output.AA_BB_CC_DD_EE_FF.a2dp-sink"
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

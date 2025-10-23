@@ -1,0 +1,17 @@
+[Unit]
+Description=Moonet Backend Service
+After=network-online.target bluetooth.service bt-auto-connect.service
+Wants=network-online.target bluetooth.service bt-auto-connect.service
+
+[Service]
+User=pi
+WorkingDirectory=/home/pi/moonet
+ExecStart=/home/pi/.local/bin/poetry run gunicorn -w 1 -b 0.0.0.0:8080 wsgi:app
+Restart=always
+RestartSec=3
+Environment="PYTHONUNBUFFERED=1"
+Environment="PATH=/home/pi/.local/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="DBUS_SYSTEM_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket"
+
+[Install]
+WantedBy=multi-user.target

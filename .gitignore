@@ -1,0 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+.eggs/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Poetry cache
+.poetry/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.pid
+*.swp
+*.swo
+
+# IDE / Editor configs
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python testing
+.coverage
+.tox/
+.pytest_cache/
+
+# mpv runtime socket
+/tmp/moonet-mpv.sock
