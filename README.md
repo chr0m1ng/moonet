@@ -10,11 +10,13 @@
 - `POST /control/stop` — stop playback
 - `POST /control/volume` — `{ "value": 0..100 }` or `{ "delta": +/-5 }`
 - `GET /search?q=...` — YouTube search via yt-dlp
+- `POST /bluetooth/connect` — body: `{ "mac": "AA:BB:CC:DD:EE:FF" }` (optional, uses `DEFAULT_BT_MAC` if omitted)
 
 ## Notes
 
-- mpv is controlled via IPC UNIX socket at `/tmp/moonet-mpv.sock`.
-- Bluetooth auto-reconnect planned in `services/bluetooth.py` (stub).
+- MPV is controlled via IPC UNIX socket at `/tmp/moonet-mpv.sock`.
+- Bluetooth connection handled by `/bluetooth/connect` endpoint (manual) and `bt-auto-connect.service` (auto at boot).
+- Default Bluetooth MAC can be configured in `config.py` as `DEFAULT_BT_MAC`.
 
 ## Activation
 
