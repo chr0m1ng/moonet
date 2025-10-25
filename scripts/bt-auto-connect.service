@@ -7,7 +7,7 @@ Wants=bluetooth.service
 [Service]
 Type=oneshot
 User=pi
-ExecStart=/usr/bin/bash -lc "bluetoothctl power on && bluetoothctl connect AA:BB:CC:DD:EE:FF && pactl set-default-sink bluez_output.AA_BB_CC_DD_EE_FF.a2dp-sink"
+ExecStart=/usr/bin/bash -lc "bluetoothctl power on && bluetoothctl connect C0:28:8D:10:6A:ED && pactl set-default-sink bluez_output.C0_28_8D_10_6A_ED.a2dp-sink"
 RemainAfterExit=yes
 
 [Install]

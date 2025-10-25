@@ -10,7 +10,7 @@
 - `POST /control/stop` — stop playback
 - `POST /control/volume` — `{ "value": 0..100 }` or `{ "delta": +/-5 }`
 - `GET /search?q=...` — YouTube search via yt-dlp
-- `POST /bluetooth/connect` — body: `{ "mac": "AA:BB:CC:DD:EE:FF" }` (optional, uses `DEFAULT_BT_MAC` if omitted)
+- `POST /bluetooth/connect` — body: `{ "mac": "C0:28:8D:10:6A:ED" }` (optional, uses `DEFAULT_BT_MAC` if omitted)
 
 ## Notes
 
