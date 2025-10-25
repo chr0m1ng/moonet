@@ -7,7 +7,6 @@ def bt_reconnect(mac: str | None = DefaultConfig.DEFAULT_BT_MAC) -> bool:
   """Attempt to (re)connect a known Bluetooth speaker using bluetoothctl.
   Returns True if the command exits with code 0.
   """
-  if mac is None:
-    return False
+  mac = mac or DefaultConfig.DEFAULT_BT_MAC
   cmd = f"bluetoothctl connect {mac} || (bluetoothctl power on && bluetoothctl connect {mac})"
   return subprocess.call(["bash", "-lc", cmd]) == 0
