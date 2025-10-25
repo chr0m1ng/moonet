@@ -1,6 +1,6 @@
 class DefaultConfig:
-  DEBUG = True
-  TESTING = True
+  DEBUG = False
+  TESTING = False
   HOST = "0.0.0.0"
   PORT = 8080
   MPV_SOCKET = "/tmp/moonet-mpv.sock"
