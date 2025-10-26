@@ -1,12 +1,14 @@
 [Unit]
 Description=Moonet Backend Service
-After=network-online.target bluetooth.service bt-auto-connect.service
-Wants=network-online.target bluetooth.service bt-auto-connect.service
+After=network-online.target bluetooth.service bt-auto-connect.service bt-keepalive.service
+Wants=network-online.target bluetooth.service bt-auto-connect.service bt-keepalive.service
 
 [Service]
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+Environment=PULSE_SERVER=unix:/run/user/1000/pulse/native
 User=pi
 WorkingDirectory=/home/pi/moonet
-ExecStart=/home/pi/.local/bin/poetry run gunicorn -w 1 -b 0.0.0.0:8080 wsgi:app
+ExecStart=poetry run gunicorn -w 1 -b 0.0.0.0:8080 wsgi:app
 Restart=always
 RestartSec=3
 Environment="PYTHONUNBUFFERED=1"

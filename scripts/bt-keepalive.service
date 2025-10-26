@@ -1,0 +1,15 @@
+[Unit]
+Description=Bluetooth Speaker Keepalive (Wonderboom)
+After=bluetooth.service bt-auto-connect.service
+Wants=bluetooth.service bt-auto-connect.service
+PartOf=moonet.service
+
+[Service]
+User=pi
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+Environment=PULSE_SERVER=unix:/run/user/1000/pulse/native
+ExecStart=/usr/local/bin/bt-keepalive.sh
+Restart=always
+RestartSec=10
+
+[Install]
