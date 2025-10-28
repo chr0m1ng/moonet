@@ -42,9 +42,9 @@ def yt_video_info(url: str):
   return extract_video_info(dict(data))
 
 
-def yt_search(query: str, limit: int | None = None):
+def yt_search(query: str, limit: int | None = None, page: int = 1):
   if limit is None:
-    limit = current_app.config.get("YTDLP_SEARCH_LIMIT", 6)
+    limit = int(current_app.config.get("YTDLP_SEARCH_LIMIT", 6))
 
   cookies_path = current_app.config.get("YTDLP_COOKIES_PATH")
   ydl_opts = {
@@ -57,10 +57,25 @@ def yt_search(query: str, limit: int | None = None):
   if cookies_path and os.path.exists(cookies_path):
     ydl_opts["cookiefile"] = cookies_path
 
-  results = []
+  # fetch enough entries for all pages up to the current one (+1 to detect has_next)
+  need = page * limit + 1
+  results: list[dict] = []
+
   with yt_dlp.YoutubeDL(ydl_opts) as ydl:  # type: ignore
-    info = ydl.extract_info(f"ytsearch{limit}:{query}", download=False)
+    info = ydl.extract_info(f"ytsearch{need}:{query}", download=False)
     entries = info.get("entries", []) if isinstance(info, dict) else []
-    for e in entries:
+
+    start = (page - 1) * limit
+    end = start + limit
+    sliced = entries[start:end]
+    has_next = len(entries) > end
+
+    for e in sliced:
       results.append(extract_video_info(dict(e)))
-  return results
+
+  return {
+    "page": page,
+    "limit": limit,
+    "has_next": has_next,
+    "items": results,
+  }

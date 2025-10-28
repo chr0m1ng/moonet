@@ -20,7 +20,7 @@ class Play(Resource):
     if not url and not query:
       return {"error": "send url or query"}, 400
     elif query and not url:
-      if not (videos := yt_search(query, limit=1)) or not (video := videos[0]):
+      if not (videos := yt_search(query, limit=1).get("items")) or not (video := videos[0]):
         return {"error": "no results"}, 404
     elif url:
       video = yt_video_info(url)

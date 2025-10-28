@@ -10,10 +10,11 @@ class Search(Resource):
     if not q:
       return {"error": "param q is required"}, 400
     limit = request.args.get("limit", type=int)
+    page = int(request.args.get("page", 1))
     if limit is None:
       limit = current_app.config.get("YTDLP_SEARCH_LIMIT", 6)
-    items = yt_search(q, limit=limit)
-    return {"items": items, "limit": limit}, 200
+    result = yt_search(q, limit=limit, page=page)
+    return {"ok": True, "result": result}, 200
 
 
 def register(api: Api) -> None:
