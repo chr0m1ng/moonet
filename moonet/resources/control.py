@@ -3,6 +3,7 @@ import time
 from flask import request
 from flask_restful import Api, Resource
 
+from ..services import history
 from ..services.mpv import MPVController
 from ..utils.ytdlp import yt_search, yt_video_info
 
@@ -36,6 +37,8 @@ class Play(Resource):
       if status.get("playing"):
         break
     ok = status.get("playing") is True
+    if video:
+      history.add(video)
     return {"ok": ok, "status": status}, 200
 
 

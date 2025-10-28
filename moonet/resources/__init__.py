@@ -1,6 +1,6 @@
 from flask_restful import Api
 
-from . import bluetooth, control, health, search, status
+from . import bluetooth, control, health, history, search, status
 
 
 def register_resources(api: Api) -> None:
@@ -9,3 +9,4 @@ def register_resources(api: Api) -> None:
   control.register(api)
   search.register(api)
   bluetooth.register(api)
+  history.register(api)
