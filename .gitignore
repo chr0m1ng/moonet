@@ -41,5 +41,5 @@ Thumbs.db
 # mpv runtime socket
 /tmp/moonet-mpv.sock
 
-# History file
-**/data/history.json
+# Store files
+**/data/*.json
