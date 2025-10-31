@@ -3,12 +3,13 @@ import time
 from flask import request
 from flask_restful import Api, Resource
 
-from ..services import history
 from ..services.mpv import MPVController
+from ..store import HistoryStore
 from ..utils.response import build_response
 from ..utils.ytdlp import yt_search, yt_video_info
 
 mpv = MPVController()
+history = HistoryStore()
 
 
 class Play(Resource):
