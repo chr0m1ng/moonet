@@ -1,6 +1,7 @@
 from flask import current_app, request
 from flask_restful import Api, Resource
 
+from ..utils.response import build_response
 from ..utils.ytdlp import yt_search
 
 
@@ -14,7 +15,7 @@ class Search(Resource):
     if limit is None:
       limit = current_app.config.get("YTDLP_SEARCH_LIMIT", 6)
     result = yt_search(q, limit=limit, page=page)
-    return {"ok": True, "result": result}, 200
+    return build_response(True, result), 200
 
 
 def register(api: Api) -> None:
