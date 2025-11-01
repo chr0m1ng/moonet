@@ -55,5 +55,10 @@ class BaseStore:
       "items": sliced,
     }
 
+  def remove(self, key: str, value: str):
+    items = self._load()
+    items = [i for i in items if i.get(key) != value]
+    self._save(items)
+
   def clear(self):
     self._save([])

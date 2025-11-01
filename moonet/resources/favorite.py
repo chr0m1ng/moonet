@@ -28,7 +28,11 @@ class FavoriteResource(Resource):
     return build_response(True, store.list(limit, page)), 200
 
   def delete(self):
-    store.clear()
+    args = request.args or {}
+    url = args.get("url")
+    if not url:
+      return build_response(False, "URL is required"), 400
+    store.remove("url", url)
     return build_response(True), 200
 
 
