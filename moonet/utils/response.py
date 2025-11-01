@@ -7,7 +7,7 @@ def build_response(success: bool, body: Any = None) -> dict:
   otherwise returns `{"ok": success, "error": body}`.
   """
   response: dict[str, Any] = {"ok": success}
-  if body is not None and success:
+  if body is not None:
     key = "data" if success else "error"
     response[key] = body
   return response
