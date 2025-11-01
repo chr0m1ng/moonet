@@ -32,12 +32,7 @@ class Play(Resource):
     mpv.load(url, video.get("meta", {}))
     if volume is not None:
       mpv.set_volume(int(volume))
-    deadline = time.time() + 3.0
-    status = {}
-    while time.time() < deadline:  # allow some time for mpv to start playback
-      status = mpv.get_status()
-      if status.get("playing"):
-        break
+    status = mpv.get_status_when("playing", True)
     ok = status.get("playing") is True
     if video:
       history.add(video)
@@ -47,19 +42,22 @@ class Play(Resource):
 class Pause(Resource):
   def post(self):
     mpv.pause(True)
-    return build_response(True, mpv.get_status()), 200
+    status = mpv.get_status_when("pause", True)
+    return build_response(True, status), 200
 
 
 class Resume(Resource):
   def post(self):
     mpv.pause(False)
-    return build_response(True, mpv.get_status()), 200
+    status = mpv.get_status_when("playing", True)
+    return build_response(True, status), 200
 
 
 class Stop(Resource):
   def post(self):
     mpv.stop()
-    return build_response(True, mpv.get_status()), 200
+    status = mpv.get_status_when("playing", False)
+    return build_response(True, status), 200
 
 
 class Volume(Resource):

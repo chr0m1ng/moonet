@@ -6,7 +6,7 @@ import socket
 import subprocess
 import threading
 import time
-from typing import overload
+from typing import Any, overload
 
 from flask import current_app
 
@@ -148,3 +148,13 @@ class MPVController:
     out["playing"] = out.get("pause") is False and out.get("time-pos") is not None
     out["meta"] = self.get_video_meta()
     return {k.replace("-", "_"): v for k, v in out.items()}
+
+  def get_status_when(self, key: str, value: Any, timeout=3.0, interval=0.1):
+    status = {}
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+      status = self.get_status()
+      if status.get(key) == value:
+        return status
+      time.sleep(interval)
+    return self.get_status()
