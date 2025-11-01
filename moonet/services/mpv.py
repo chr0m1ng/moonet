@@ -147,7 +147,4 @@ class MPVController:
 
     out["playing"] = out.get("pause") is False and out.get("time-pos") is not None
     out["meta"] = self.get_video_meta()
-
-    for key, value in out.items():
-      out[key.replace("-", "_")] = value
-    return out
+    return {k.replace("-", "_"): v for k, v in out.items()}
