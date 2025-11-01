@@ -3,14 +3,14 @@ from __future__ import annotations
 from flask import request
 from flask_restful import Api, Resource
 
-from ..store import FavoritesStore
+from ..store import FavoriteStore
 from ..utils.response import build_response
 from ..utils.ytdlp import yt_video_info
 
-store = FavoritesStore()
+store = FavoriteStore()
 
 
-class FavoritesResource(Resource):
+class FavoriteResource(Resource):
 
   def post(self):
     data = request.get_json() or {}
@@ -33,4 +33,4 @@ class FavoritesResource(Resource):
 
 
 def register(api: Api):
-  api.add_resource(FavoritesResource, "/favorites")
+  api.add_resource(FavoriteResource, "/favorite")
