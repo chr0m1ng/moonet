@@ -20,4 +20,4 @@ class DefaultConfig:
   DEFAULT_BT_MAC = "C0:28:8D:10:6A:ED"
   HISTORY_PATH = DATA_DIR / "history.json"
   HISTORY_MAX = 100
-  FAVORITES_PATH = DATA_DIR / "favorites.json"
+  FAVORITE_PATH = DATA_DIR / "favorites.json"
