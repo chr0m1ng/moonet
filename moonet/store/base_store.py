@@ -43,7 +43,7 @@ class BaseStore:
   def list(self, limit: int = 50, page: int = 1) -> dict:
     items = self._load()
     total = len(items)
-    start = max((page - 1) * limit, 0)
+    start = max(page - 1, 0) * limit
     end = start + limit
     sliced = items[start:end]
     has_next = end < total
