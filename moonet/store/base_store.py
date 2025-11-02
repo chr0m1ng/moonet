@@ -40,10 +40,10 @@ class BaseStore:
       items.append(entry)
     self._save(items)
 
-  def list(self, limit: int = 50, page: int = 1) -> dict:
+  def list(self, limit: int = 50, page: int = 0) -> dict:
     items = self._load()
     total = len(items)
-    start = max(page - 1, 0) * limit
+    start = page * limit
     end = start + limit
     sliced = items[start:end]
     has_next = end < total
