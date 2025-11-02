@@ -36,7 +36,7 @@ class Play(Resource):
     ok = status.get("playing") is True
     if video:
       history.add(video)
-    return build_response(ok, status), 200
+    return build_response(ok, status if ok else "Could not play video"), 200
 
 
 class Pause(Resource):
