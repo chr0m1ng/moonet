@@ -24,7 +24,7 @@ class FavoriteResource(Resource):
   def get(self):
     args = request.args or {}
     limit = int(args.get("limit", 50))
-    page = int(args.get("page", 1))
+    page = int(args.get("page", 0))
     return build_response(True, store.list(limit, page)), 200
 
   def delete(self):

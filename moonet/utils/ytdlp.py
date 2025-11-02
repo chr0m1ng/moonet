@@ -42,7 +42,7 @@ def yt_video_info(url: str):
   return extract_video_info(dict(data))
 
 
-def yt_search(query: str, limit: int | None = None, page: int = 1):
+def yt_search(query: str, limit: int | None = None, page: int = 0):
   if limit is None:
     limit = int(current_app.config.get("YTDLP_SEARCH_LIMIT", 6))
 
@@ -65,7 +65,7 @@ def yt_search(query: str, limit: int | None = None, page: int = 1):
     info = ydl.extract_info(f"ytsearch{need}:{query}", download=False)
     entries = info.get("entries", []) if isinstance(info, dict) else []
 
-    start = (page - 1) * limit
+    start = page * limit
     end = start + limit
     sliced = entries[start:end]
     has_next = len(entries) > end
