@@ -10,6 +10,14 @@ from typing import Any, overload
 
 from flask import current_app
 
+STATUS_DEFAULTS = {
+  "pause": False,
+  "volume": 0,
+  "time-pos": 0,
+  "duration": 0,
+  "media-title": ""
+}
+
 
 class MPVController:
   def __init__(self):
@@ -143,7 +151,7 @@ class MPVController:
     cmds = [{"command": ["get_property", p]} for p in props]
 
     results = self._send(cmds)
-    out = {p: r.get("data") for p, r in zip(props, results)}
+    out = {p: r.get("data", STATUS_DEFAULTS.get(p)) for p, r in zip(props, results)}
 
     out["playing"] = out.get("pause") is False and out.get("time-pos") is not None
     out["meta"] = self.get_video_meta()
