@@ -153,7 +153,7 @@ class MPVController:
     results = self._send(cmds)
     out = {p: r.get("data", STATUS_DEFAULTS.get(p)) for p, r in zip(props, results)}
 
-    out["playing"] = out.get("pause") is False and out.get("duration")
+    out["playing"] = out.get("pause") is False and out.get("duration") != 0
     out["meta"] = self.get_video_meta()
     return {k.replace("-", "_"): v for k, v in out.items()}
 
