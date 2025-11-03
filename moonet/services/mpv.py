@@ -15,7 +15,8 @@ STATUS_DEFAULTS = {
   "volume": 0,
   "time-pos": 0,
   "duration": 0,
-  "media-title": ""
+  "media-title": "",
+  "idle-active": True,
 }
 
 
@@ -147,13 +148,13 @@ class MPVController:
     return self._send({"command": ["add", "volume", int(delta)]})
 
   def get_status(self) -> dict:
-    props = ["pause", "volume", "time-pos", "duration", "media-title"]
+    props = ["pause", "volume", "time-pos", "duration", "media-title", "idle-active"]
     cmds = [{"command": ["get_property", p]} for p in props]
 
     results = self._send(cmds)
     out = {p: r.get("data", STATUS_DEFAULTS.get(p)) for p, r in zip(props, results)}
 
-    out["playing"] = out.get("pause") is False and out.get("duration") != 0
+    out["playing"] = out.get("pause") is False and out.get("idle-active") is False
     out["meta"] = self.get_video_meta()
     return {k.replace("-", "_"): v for k, v in out.items()}
 

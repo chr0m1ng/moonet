@@ -56,7 +56,7 @@ class Resume(Resource):
 class Stop(Resource):
   def post(self):
     mpv.stop()
-    status = mpv.get_status_when("playing", False)
+    status = mpv.get_status_when("idle-active", True)
     return build_response(True, status), 200
 
 
