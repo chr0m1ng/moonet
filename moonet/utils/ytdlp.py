@@ -58,7 +58,7 @@ def yt_search(query: str, limit: int | None = None, page: int = 0):
     ydl_opts["cookiefile"] = cookies_path
 
   # fetch enough entries for all pages up to the current one (+1 to detect has_next)
-  need = page * limit + 1
+  need = max(page, 1) * limit
   results: list[dict] = []
 
   with yt_dlp.YoutubeDL(ydl_opts) as ydl:  # type: ignore
