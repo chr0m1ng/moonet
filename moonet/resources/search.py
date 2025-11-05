@@ -24,7 +24,7 @@ class Search(Resource):
 
 class SearchHistory(Resource):
   def get(self):
-    result = [item["query"] for item in search_history.list()]
+    result = [item["query"] for item in search_history.list()["items"]]
     return build_response(True, result), 200
 
   def delete(self):

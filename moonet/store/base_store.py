@@ -7,10 +7,11 @@ from typing import Any, Dict, List
 
 
 class BaseStore:
-  def __init__(self, path: Path, insert_at_start: bool, max_items: int | None = None):
+  def __init__(self, path: Path, insert_at_start: bool, max_items: int | None = None, unique_keys: List[str] = []):
     self.path = path
     self.insert_at_start = insert_at_start
     self.max_items = max_items
+    self.unique_keys = unique_keys
 
   def _ensure_file(self):
     self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -29,9 +30,9 @@ class BaseStore:
 
   def add(self, entry: Dict[str, Any]):
     items = self._load()
-    vid = entry.get("id") or entry.get("url")
-    items = [i for i in items if (i.get("id") or i.get("url")) != vid]
-    entry["played_at"] = int(time.time() * 1000)
+    unique_values = {key: entry.get(key) for key in self.unique_keys if key in entry}
+    if unique_values:
+      items = [i for i in items if not any(i.get(k) == v for k, v in unique_values.items())]
     if self.max_items and len(items) > self.max_items:
       items = items[:self.max_items]
     if self.insert_at_start:
