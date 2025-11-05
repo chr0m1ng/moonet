@@ -21,3 +21,5 @@ class DefaultConfig:
   HISTORY_PATH = DATA_DIR / "history.json"
   HISTORY_MAX = 100
   FAVORITE_PATH = DATA_DIR / "favorites.json"
+  SEARCH_HISTORY_PATH = DATA_DIR / "search_history.json"
+  SEARCH_HISTORY_MAX = 50
