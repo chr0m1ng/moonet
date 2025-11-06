@@ -68,7 +68,6 @@ def yt_search(query: str, limit: int | None = None, page: int = 0):
     start = page * limit
     end = start + limit
     sliced = entries[start:end]
-    has_next = len(entries) > end
 
     for e in sliced:
       results.append(extract_video_info(dict(e)))
@@ -76,6 +75,6 @@ def yt_search(query: str, limit: int | None = None, page: int = 0):
   return {
     "page": page,
     "limit": limit,
-    "has_next": has_next,
+    "has_next": True,
     "items": results,
   }
