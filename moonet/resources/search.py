@@ -12,7 +12,7 @@ class Search(Resource):
   def get(self):
     query = request.args.get("query", "").strip()
     if not query:
-      return build_response(False, {"error": "param query is required"}), 400
+      return build_response(False, "param query is required"), 400
     limit = request.args.get("limit", type=int)
     page = int(request.args.get("page", 0))
     if limit is None:
@@ -30,7 +30,7 @@ class SearchHistory(Resource):
   def delete(self):
     query = request.args.get("query", "").strip()
     if not query:
-      return build_response(False, {"error": "param query is required"}), 400
+      return build_response(False, "param query is required"), 400
     search_history.remove("query", query)
     return build_response(True, {"message": f"Removed search history for query: {query}"}), 200
 
