@@ -17,7 +17,8 @@ class Search(Resource):
     page = int(request.args.get("page", 0))
     if limit is None:
       limit = current_app.config.get("YTDLP_SEARCH_LIMIT", 6)
-    search_history.add({"query": query})
+    if page == 0:
+      search_history.add({"query": query})
     result = yt_search(query, limit=limit, page=page)
     return build_response(True, result), 200
 
