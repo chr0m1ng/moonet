@@ -33,7 +33,7 @@ class SearchHistory(Resource):
     if not query:
       return build_response(False, "param query is required"), 400
     search_history.remove("query", query)
-    return build_response(True, {"message": f"Removed search history for query: {query}"}), 200
+    return build_response(True), 200
 
 
 def register(api: Api) -> None:
