@@ -11,7 +11,8 @@ YT_DLP_OPTS = {
   "extract_flat": "in_playlist",
   "default_search": "ytsearch",
   "noplaylist": True,
-  "no_check_certificate": True
+  "nocheckcertificate": True,
+  "ignoreerrors": True,
 }
 
 
