@@ -97,17 +97,16 @@ class MPVController:
           "--audio-display=no",
           f"--volume={current_app.config['DEFAULT_VOLUME']}",
           "--ytdl=yes",
+          "--ytdl-format=mp4"
         ]
-        ytdl_raw_opts = ["extractor-args=youtube:player_client=android"]
+        yt_dlp_raw_opts = ["no-check-certificates="]
         cookies_path = current_app.config.get("YTDLP_COOKIES_PATH")
         if cookies_path:
-          ytdl_raw_opts.insert(0, f"cookies={cookies_path}")
-        cmd.append("--ytdl-raw-options=" + ",".join(ytdl_raw_opts))
-
+          yt_dlp_raw_opts.append("cookies={cookies_path}")
+        cmd.append("--ytdl-raw-options=" + ",".join(yt_dlp_raw_opts))
         self._proc = subprocess.Popen(
           cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
         )
-
         deadline = time.time() + 5
         while time.time() < deadline:
           if os.path.exists(self.sock) and self._socket_ok():

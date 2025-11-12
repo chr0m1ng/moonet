@@ -12,7 +12,6 @@ YT_DLP_OPTS = {
   "default_search": "ytsearch",
   "noplaylist": True,
   "nocheckcertificate": True,
-  "ignoreerrors": True,
 }
 
 
@@ -39,7 +38,7 @@ def extract_video_info(data: dict):
 def yt_video_info(url: str):
   cookies_path = current_app.config.get("YTDLP_COOKIES_PATH")
   if cookies_path and os.path.exists(cookies_path):
-    YT_DLP_OPTS["cookiefile"] = cookies_path
+    YT_DLP_OPTS["cookies"] = cookies_path
 
   with yt_dlp.YoutubeDL(YT_DLP_OPTS) as ydl:  # type: ignore
     data = ydl.extract_info(url, download=False)
@@ -52,7 +51,7 @@ def yt_search(query: str, limit: int | None = None, page: int = 0):
 
   cookies_path = current_app.config.get("YTDLP_COOKIES_PATH")
   if cookies_path and os.path.exists(cookies_path):
-    YT_DLP_OPTS["cookiefile"] = cookies_path
+    YT_DLP_OPTS["cookies"] = cookies_path
 
   # fetch enough entries for all pages up to the current one (+1 to detect has_next)
   need = (page + 1) * limit + 1
