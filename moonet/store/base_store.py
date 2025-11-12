@@ -28,6 +28,13 @@ class BaseStore:
   def _save(self, items: List[Dict[str, Any]]):
     self.path.write_text(json.dumps(items, ensure_ascii=False), encoding="utf-8")
 
+  def get(self, key: str, value: str):
+    items = self._load()
+    for item in items:
+      if item.get(key) == value:
+        return item
+    return None
+
   def add(self, entry: Dict[str, Any]):
     items = self._load()
     unique_values = {key: entry.get(key) for key in self.unique_keys if key in entry}
